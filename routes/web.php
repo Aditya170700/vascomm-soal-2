@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,5 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboards');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
 });
