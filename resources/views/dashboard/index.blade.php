@@ -26,7 +26,7 @@
                 <div class="card bg-purple text-dark mb-4 rounded-4 border-0 p-2">
                     <div class="card-body">
                         <p class="m-0 small">Jumlah Produk</p>
-                        <p class="m-0 fs-4">150 Produk</p>
+                        <p class="m-0 fs-4">{{ $active_product }} Produk</p>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div class="card bg-purple text-dark mb-4 rounded-4 border-0 p-2">
                     <div class="card-body">
                         <p class="m-0 small">Jumlah Produk Aktif</p>
-                        <p class="m-0 fs-4">150 Produk</p>
+                        <p class="m-0 fs-4">{{ $inactive_product }} Produk</p>
                     </div>
                 </div>
             </div>
@@ -53,17 +53,18 @@
                                 </tr>
                             </thead>
                             <tbody class="mb-0">
-                                @for ($i = 1; $i <= 3; $i++)
+                                @forelse ($products as $product)
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('produk-3.png') }}" alt=""> <span>
-                                                Microsoft
-                                                Surface 7</span>
+                                            <img src="{{ asset($product->image) }}" alt="" width="200">
+                                            <span>{{ $product->name }}</span>
                                         </td>
-                                        <td>12 Mei 2023</td>
-                                        <td>Rp. 1000</td>
+                                        <td>{{ date('d M Y', strtotime($product->created_at)) }}
+                                        </td>
+                                        <td>{{ $product->price_idr }}</td>
                                     </tr>
-                                @endfor
+                                @empty
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

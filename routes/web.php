@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\DAshboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,22 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboards');
-    Route::get('/users', [UserController::class, 'index'])->name('users');
-    Route::put('/users/{id}/update', [UserController::class, 'update'])->name('users.update');
-    Route::put('/users/{id}/approve', [UserController::class, 'approve'])->name('users.approve');
+
+    Route::controller(UserController::class)
+        ->prefix('/users')
+        ->name('users')
+        ->group(function () {
+            Route::get('/', 'index');
+            Route::put('/{id}/approve', 'approve')->name('.approve');
+        });
+
+    Route::controller(ProductController::class)
+        ->prefix('/products')
+        ->name('products')
+        ->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store')->name('.store');
+            Route::put('/{id}/update', 'update')->name('.update');
+            Route::delete('/{id}', 'destroy')->name('.destroy');
+        });
 });

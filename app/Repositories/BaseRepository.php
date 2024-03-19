@@ -13,6 +13,14 @@ class BaseRepository
             ->paginate($request->per_page);
     }
 
+    public function getLimited($limit)
+    {
+        return $this->model
+            ->latest()
+            ->limit($limit)
+            ->get();
+    }
+
     public function find(?int $id)
     {
         return $this->model

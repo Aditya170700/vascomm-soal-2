@@ -15,7 +15,7 @@
                 Manajemen User
             </a>
             <a class="nav-link {{ str_contains($routeName, 'products') ? 'bg-primary text-white' : 'text-dark' }}"
-                href="{{ route('dashboards') }}">
+                href="{{ route('products') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                 Manajemen Produk
             </a>
