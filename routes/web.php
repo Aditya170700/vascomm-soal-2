@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -18,7 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
-Route::group(['prefix' => 'dashboard'], function () {
+Route::controller(AuthController::class)
+    ->middleware('guest')
+    ->group(function () {
+        Route::group(['prefix' => 'login'], function () {
+            Route::get('/login', 'login')->name('login');
+            Route::post('/login', 'postLogin')->name('login.post');
+        });
+    });
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboards');
     Route::get('/users', [UserController::class, 'index'])->name('users');
 });

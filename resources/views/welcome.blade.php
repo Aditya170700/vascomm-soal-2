@@ -31,8 +31,15 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-outline-primary rounded-0 mx-2">MASUK</button>
-                    <button class="btn btn-primary rounded-0">DAFTAR</button>
+                    @auth
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger rounded-0">Logout</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary rounded-0 mx-2">MASUK</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary rounded-0">DAFTAR</a>
+                    @endauth
                 </div>
             </div>
         </div>
