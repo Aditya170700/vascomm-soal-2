@@ -4,9 +4,6 @@
     <div class="container-fluid px-4">
         <div class="d-flex justify-content-between my-4">
             <h5 class="fw-light">Manajemen User</h5>
-            {{-- <button class="btn bg-primary rounded-0">
-                TAMBAH USER
-            </button> --}}
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -86,12 +83,6 @@
                                         data-bs-toggle="modal" data-bs-target="#exampleModal{{ $loop->iteration }}">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    {{-- <button class="btn btn-sm rounded-circle btn-warning mx-1">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-sm rounded-circle btn-danger mx-1">
-                                        <i class="fas fa-trash"></i>
-                                    </button> --}}
                                 </td>
                             </tr>
                         @empty
@@ -101,6 +92,11 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        {{ $results->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -77,37 +77,45 @@
         <div class="mt-5">
             <h4>Terbaru</h4>
             <div class="row">
-                @for ($i = 0; $i <= 5; $i++)
+                @forelse ($latest_products as $lp)
                     <div class="col-6 col-lg-2 mb-4">
                         <div class="card">
                             <div class="d-flex justify-content-center py-3">
-                                <img src="{{ asset('produk-1.png') }}" class="card-img-top w-75" alt="...">
+                                <img src="{{ asset($lp->image) }}" class="card-img-top w-75" alt="...">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Euodia</h5>
-                                <h6 class="text-info">IDR x.xxx.980</h6>
+                                <h5 class="card-title">{{ $lp->name }}</h5>
+                                <h6 class="text-info">{{ $lp->price_idr }}</h6>
                             </div>
                         </div>
                     </div>
-                @endfor
+                @empty
+                    <div class="col-12 text-center">
+                        Belum ada produk
+                    </div>
+                @endforelse
             </div>
         </div>
         <div class="mt-5">
             <h4>Produk Tersedia</h4>
             <div class="row">
-                @for ($i = 0; $i <= 11; $i++)
+                @forelse ($products as $lp)
                     <div class="col-6 col-lg-2 mb-4">
                         <div class="card">
                             <div class="d-flex justify-content-center py-3">
-                                <img src="{{ asset('produk-2.png') }}" class="card-img-top w-75" alt="...">
+                                <img src="{{ asset($lp->image) }}" class="card-img-top w-75" alt="...">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Euodia</h5>
-                                <h6 class="text-info">IDR x.xxx.980</h6>
+                                <h5 class="card-title">{{ $lp->name }}</h5>
+                                <h6 class="text-info">{{ $lp->price_idr }}</h6>
                             </div>
                         </div>
                     </div>
-                @endfor
+                @empty
+                    <div class="col-12 text-center">
+                        Belum ada produk
+                    </div>
+                @endforelse
             </div>
         </div>
     </main>

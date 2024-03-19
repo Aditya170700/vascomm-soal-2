@@ -10,15 +10,7 @@ class BaseRepository
     {
         return $this->model
             ->latest()
-            ->paginate($request->per_page);
-    }
-
-    public function getLimited($limit)
-    {
-        return $this->model
-            ->latest()
-            ->limit($limit)
-            ->get();
+            ->paginate($request->per_page ?? 10);
     }
 
     public function find(?int $id)

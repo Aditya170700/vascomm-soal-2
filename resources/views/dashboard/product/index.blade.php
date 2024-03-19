@@ -234,6 +234,11 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        {{ $results->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
