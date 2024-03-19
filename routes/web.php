@@ -23,8 +23,12 @@ Route::controller(AuthController::class)
     ->middleware('guest')
     ->group(function () {
         Route::group(['prefix' => 'login'], function () {
-            Route::get('/login', 'login')->name('login');
-            Route::post('/login', 'postLogin')->name('login.post');
+            Route::get('/', 'login')->name('login');
+            Route::post('/', 'postLogin')->name('login.post');
+        });
+        Route::group(['prefix' => 'register'], function () {
+            Route::get('/', 'register')->name('register');
+            Route::post('/', 'postRegister')->name('register.post');
         });
     });
 

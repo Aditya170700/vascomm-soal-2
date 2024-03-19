@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UserRegistrationJob;
 use App\Models\User;
-use App\Repositories\UserRepository;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +21,7 @@ class AuthController extends Controller
 
     function login()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     function postLogin(Request $request)
@@ -42,6 +44,36 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->with('error', 'Credential doesn\'t match');
+    }
+
+    function register()
+    {
+        return view('auth.register');
+    }
+
+    function postRegister(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required|unique:users,phone',
+            'email' => 'required|unique:users,email'
+        ]);
+
+        try {
+            $password = Str::random(8);
+            $data = $request->only(['name', 'phone', 'email']);
+            $data['password'] = bcrypt($password);
+            $data['role'] = User::USER;
+            $data['status'] = User::INACTIVE;
+
+            $this->userRepo->store($data);
+
+            dispatch(new UserRegistrationJob($request->email, $password));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+
+        return redirect()->route('login')->with('success', "Silahkan login dengan email ({$data['email']}) dan password yang dikirimkan ke email tersebut");
     }
 
     function logout()
