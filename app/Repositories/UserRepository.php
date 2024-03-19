@@ -17,4 +17,11 @@ class UserRepository extends BaseRepository
             ->findByEmail($email)
             ->first();
     }
+
+    public function countUser($status)
+    {
+        return $this->model
+            ->where('status', $status)
+            ->count();
+    }
 }

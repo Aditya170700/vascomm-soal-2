@@ -10,7 +10,7 @@
                 <div class="card bg-purple text-dark mb-4 rounded-4 border-0 p-2">
                     <div class="card-body">
                         <p class="m-0 small">Jumlah User</p>
-                        <p class="m-0 fs-4">150 User</p>
+                        <p class="m-0 fs-4">{{ $active_user }} User</p>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                 <div class="card bg-purple text-dark mb-4 rounded-4 border-0 p-2">
                     <div class="card-body">
                         <p class="m-0 small">Jumlah User Aktif</p>
-                        <p class="m-0 fs-4">150 User</p>
+                        <p class="m-0 fs-4">{{ $inactive_user }} User</p>
                     </div>
                 </div>
             </div>

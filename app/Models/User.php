@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $q->where('email', $email);
     }
+
+    function getBadgeStatusAttribute()
+    {
+        return $this->status ? '<span class="badge bg-success">AKTIF</span>' : '<span class="badge bg-danger">TIDAK AKTIF</span>';
+    }
 }

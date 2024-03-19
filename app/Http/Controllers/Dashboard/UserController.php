@@ -2,13 +2,32 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 
 class UserController extends Controller
 {
-    function index()
+    private $userRepo;
+
+    public function __construct(UserRepository $userRepo)
     {
-        return view('dashboard.user.index');
+        $this->userRepo = $userRepo;
+    }
+
+    function index(Request $request)
+    {
+        $data['results'] = $this->userRepo->getPaginated($request);
+
+        return view('dashboard.user.index', $data);
+    }
+
+    function approve($id)
+    {
+        $this->userRepo->update($id, [
+            'status' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'User berhasil diapprove');
     }
 }

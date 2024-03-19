@@ -9,6 +9,7 @@ class BaseRepository
     public function getPaginated($request)
     {
         return $this->model
+            ->latest()
             ->paginate($request->per_page);
     }
 

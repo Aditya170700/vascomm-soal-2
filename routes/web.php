@@ -37,4 +37,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'role:admin']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboards');
     Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::put('/users/{id}/update', [UserController::class, 'update'])->name('users.update');
+    Route::put('/users/{id}/approve', [UserController::class, 'approve'])->name('users.approve');
 });
